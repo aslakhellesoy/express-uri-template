@@ -1,0 +1,32 @@
+{
+  "name": "express-uri-template",
+  "version": "0.0.1",
+  "description": "Expand express.js style URI templates, similar to RFC 6570",
+  "main": "index.js",
+  "scripts": {
+    "test": "node_modules/.bin/mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aslakhellesoy/express-uri-template"
+  },
+  "keywords": [
+    "express",
+    "template",
+    "pattern",
+    "rfc 6570"
+  ],
+  "author": "Aslak Hellesøy",
+  "licenses": [
+    {
+      "type": "MIT +no-false-attribs",
+      "url": "https://github.com/aslakhellesoy/express-uri-template/raw/master/LICENSE"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/aslakhellesoy/express-uri-template/issues"
+  },
+  "devDependencies": {
+    "mocha": "~1.11.0"
+  }
+}
