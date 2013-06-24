@@ -18,10 +18,23 @@ express-uri-template:
 
 So you can generate urls from templates.
 
+## When?
+
+You can use it in the browser, e.g. to generate URLs for AJAX requests or links inserted into the DOM.
+You can also use it in Node.js, to generate URLs for HTTP redirects or links in generated HTML.
+
 ## Install
+
+Node.js:
 
 ```
 npm install express-uri-template
+```
+
+Bower:
+
+```
+bower install express-uri-template
 ```
 
 ## Use
