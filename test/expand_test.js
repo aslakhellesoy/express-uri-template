@@ -32,4 +32,9 @@ describe('Express pattern', function() {
     var params = [];
     assert.equal(eut('/foo/:bar/zap/*/hello/*', params), '/foo/:bar/zap/*/hello/*');
   });
+
+  it('escapes values', function() {
+    var params = {name: 'oh hai'};
+    assert.equal(eut('/foo/:name', params), '/foo/oh%20hai');
+  });
 });
