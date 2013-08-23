@@ -1,5 +1,8 @@
 # express-uri-template
 
+[![NPM](https://nodei.co/npm/express-uri-template.png?stars&downloads)](https://nodei.co/npm/express-uri-template/) 
+[![NPM](https://nodei.co/npm-dl/express-uri-template.png)](https://nodei.co/npm/express-uri-template/)
+
 express-uri-template is the reverse of [express' application routing](http://expressjs.com/api.html#app.VERB).
 
 express:
