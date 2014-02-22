@@ -1,4 +1,5 @@
 var eut = require('..');
+var Route = require('express').Route;
 var assert = require('assert');
 
 describe('Express pattern', function() {
@@ -7,8 +8,7 @@ describe('Express pattern', function() {
       bar: 9,
       snip: 'yo'
     };
-
-    assert.equal(eut('/foo/:bar/zap/:snip', params), '/foo/9/zap/yo');
+    assertRoute('/foo/:bar/zap/:snip', '/foo/9/zap/yo', params);
   });
 
   it('expands a template using req.params style Array', function() {
@@ -16,7 +16,7 @@ describe('Express pattern', function() {
     params['bar'] = 9;
     params['snip'] = 'yo';
 
-    assert.equal(eut('/foo/:bar/zap/:snip', params), '/foo/9/zap/yo');
+    assertRoute('/foo/:bar/zap/:snip', '/foo/9/zap/yo', params);
   });
 
   it('expands a template with path globs', function() {
@@ -25,16 +25,36 @@ describe('Express pattern', function() {
     params[0] = 'yo';
     params[1] = 'there';
 
-    assert.equal(eut('/foo/:bar/zap/*/hello/*', params), '/foo/9/zap/yo/hello/there');
+    assertRoute('/foo/:bar/zap/*/hello/*', '/foo/9/zap/yo/hello/there', params);
   });
 
-  it('leaves params unexpanded', function() {
-    var params = [];
-    assert.equal(eut('/foo/:bar/zap/*/hello/*', params), '/foo/:bar/zap/*/hello/*');
+  it('throws exception is not all glob params are supplied', function() {
+    try {
+      eut('/foo/:bar/zap/*/hello/*', ['x']);
+      assert.fail('Should have failed');
+    } catch(expected) {
+      assert.equal(expected.message, 'There were unexpanded params: /foo/:bar/zap/x/hello/*');
+    }
+  });
+
+  it('throws exception is not all regular params are supplied', function() {
+    try {
+      eut('/foo/:bar/:zap', {zap: 'zip'});
+      assert.fail('Should have failed');
+    } catch(expected) {
+      assert.equal(expected.message, 'There were unexpanded params: /foo/:bar/zip');
+    }
   });
 
   it('escapes params', function() {
     var params = {name: 'oh hai'};
-    assert.equal(eut('/foo/:name', params), '/foo/oh%20hai');
+    assertRoute('/foo/:name', '/foo/oh%20hai', params);
   });
 });
+
+function assertRoute(pattern, path, params) {
+  assert.equal(eut(pattern, params), path);
+  var route = new Route('GET', pattern);
+  assert.ok(route.match(path));
+  assert.deepEqual(params, route.params);
+}
